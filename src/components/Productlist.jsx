@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { add } from "../slice/CartSlice";
-import { wishlist } from "../slice/Wishlistslice1";
+import { add as addToWishlist } from "../slice/Wishlistslice1"; // ✅ updated import
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -11,40 +11,43 @@ const ProductList = () => {
   const [search, setSearch] = useState("");
   const [pricerate, setPricerate] = useState("");
 
-  const names = useSelector((state) => state.cart);
+  const cartItems = useSelector((state) => state.cart);
+  const wishlistItems = useSelector((state) => state.wishlist); // ✅ added to check duplicates
   const dispatch = useDispatch();
 
-  const ADD = (demo) => {
-    const num = names.find((totalitem) => totalitem.id === demo.id);
-    if (!num) {
-      dispatch(add(demo));
+  // 🛒 ADD TO CART
+  const ADD = (product) => {
+    const exists = cartItems.find((item) => item.id === product.id);
+    if (!exists) {
+      dispatch(add(product));
       alert("Product added successfully!");
     } else {
       alert("Product already in cart!");
     }
   };
 
-  const WH = (demo) => {
-    const num = names.find((totalitem) => totalitem.id === demo.id);
-    if (!num) {
-      dispatch(wishlist(demo));
+  // ❤️ ADD TO WISHLIST
+  const WH = (product) => {
+    const exists = wishlistItems.find((item) => item.id === product.id);
+    if (!exists) {
+      dispatch(addToWishlist(product));
       alert("Product added to wishlist!");
     } else {
       alert("Product already wishlisted!");
     }
   };
 
-  const BUTTON = (aaa) => {
-    const filtered = alldata.filter((item) => item.category === aaa);
+  const BUTTON = (category) => {
+    const filtered = alldata.filter((item) => item.category === category);
     setSold(filtered);
   };
 
   const Search = (e) => {
     setSearch(e.target.value);
     const filtered = alldata.filter(
-      (demo) =>
-        demo.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        demo.category.toLowerCase().includes(e.target.value.toLowerCase())
+      (item) =>
+        item.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        item.category.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setSold(filtered);
   };
@@ -182,13 +185,6 @@ const ProductList = () => {
 };
 
 export default ProductList;
-
-
-
-
-
-
-
 
 
 

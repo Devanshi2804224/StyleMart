@@ -27,37 +27,43 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100">
-        <p className="text-lg font-semibold text-gray-700 animate-pulse">Loading product details...</p>
+        <p className="text-lg font-semibold text-gray-700 animate-pulse">
+          Loading product details...
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-100 py-16 px-6 flex justify-center items-center">
-      <div className="max-w-5xl w-full bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-10 flex flex-col md:flex-row items-center gap-10 border border-white/40">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-100 py-16 px-4 sm:px-6 lg:px-10 flex justify-center items-center">
+      <div className="max-w-5xl w-full bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-6 sm:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10 border border-white/40">
         
         {/* Product Image */}
         <div className="flex-1 flex justify-center items-center">
-          <div className="relative group">
+          <div className="relative group w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80">
             <img
               src={product?.image}
               alt={product?.title}
-              className="w-80 h-80 object-contain transform transition duration-300 group-hover:scale-105 drop-shadow-xl"
+              className="w-full h-full object-contain transform transition duration-300 group-hover:scale-105 drop-shadow-xl"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300"></div>
           </div>
         </div>
 
         {/* Product Info */}
-        <div className="flex-1 flex flex-col justify-between">
+        <div className="flex-1 flex flex-col justify-between text-center md:text-left">
           <div>
-            <h2 className="text-3xl font-extrabold text-gray-900 mb-3">{product?.title}</h2>
-            <p className="text-gray-700 text-lg leading-relaxed mb-4">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3">
+              {product?.title}
+            </h2>
+            <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
               {product?.description}
             </p>
-            <div className="flex items-center justify-between mt-6">
-              <p className="text-2xl font-bold text-indigo-600">${product?.price}</p>
-              <span className="text-yellow-500 font-semibold">
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-between gap-2 sm:gap-0 mt-6">
+              <p className="text-xl sm:text-2xl font-bold text-indigo-600">
+                ${product?.price}
+              </p>
+              <span className="text-yellow-500 font-semibold text-lg">
                 ★ {product?.rating?.rate ?? "4.5"}
               </span>
             </div>
@@ -66,7 +72,7 @@ const ProductDetails = () => {
           {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}
-            className="mt-8 flex items-center justify-center gap-3 bg-indigo-600 text-white font-semibold px-8 py-3 rounded-2xl shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200"
+            className="mt-6 sm:mt-8 flex items-center justify-center gap-3 bg-indigo-600 text-white font-semibold px-6 sm:px-8 py-3 rounded-2xl shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:-translate-y-0.5 transition duration-200 w-full sm:w-auto mx-auto md:mx-0"
           >
             <ShoppingCart size={22} />
             Add to Cart
