@@ -20,11 +20,14 @@ const Navbar = () => {
       </Link>
 
       {/* Mobile menu toggle */}
-      <div className="md:hidden text-white cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className="md:hidden text-white cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </div>
 
-      {/* Navigation Links */}
+      {/* Navigation Links + Mobile Cart/Wishlist */}
       <ul
         className={`flex flex-col md:flex-row items-center gap-5 md:gap-10 absolute md:static left-0 w-full md:w-auto bg-blue-950 md:bg-transparent transition-all duration-300 ease-in-out
         ${isOpen ? "top-14 opacity-100" : "top-[-400px] opacity-0 md:opacity-100"}
@@ -62,9 +65,34 @@ const Navbar = () => {
             Contact
           </Link>
         </li>
+
+        {/* Mobile-only Cart/Wishlist */}
+        <li className="md:hidden">
+          <Link
+            to="/Wishlist"
+            className="text-white hover:text-yellow-300 transition duration-200 flex items-center gap-1 mt-2"
+          >
+            <Heart size={22} />
+            Wishlist
+          </Link>
+        </li>
+        <li className="md:hidden">
+          <Link
+            to="/Cart"
+            className="bg-yellow-400 text-blue-900 px-4 py-2 rounded-full font-semibold shadow-md hover:bg-yellow-500 transition duration-200 flex items-center gap-2 mt-2 relative"
+          >
+            <ShoppingCart size={20} />
+            Cart
+            {totalQuantity > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                {totalQuantity}
+              </span>
+            )}
+          </Link>
+        </li>
       </ul>
 
-      {/* Icons */}
+      {/* Desktop Cart/Wishlist */}
       <div className="hidden md:flex items-center gap-6">
         <Link
           to="/Wishlist"
